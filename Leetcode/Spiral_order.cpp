@@ -37,6 +37,8 @@ const long long mod = 1e9 + 7;
 vector<int> dx = {0, 1, 0, -1};
 vector<int> dy = {1, 0, -1, 0};
 bool visited[11][11];
+
+
 bool isValid(int i, int j, vector<vector<int>> &matrix)
 {
     if (i < 0 || j < 0 || i >= matrix.size() || j >= matrix[0].size() || visited[i][j])
