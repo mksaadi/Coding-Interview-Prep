@@ -25,8 +25,8 @@ string addBinary(string a, string b)
 
     }
     if(carry==1)res.insert(res.begin(),'1');
-   
     return res;
+   
     
 
 }
