@@ -5,7 +5,7 @@ using namespace std;
 // naive  implementation 
 
 
-string multiply(string a,char b)
+string multiply(string&a,char& b)
 {
     string res;
     int n = a.size();
@@ -22,7 +22,7 @@ string multiply(string a,char b)
     return res;
 }
 
-string addString(string a,string b)
+string addString(string& a,string& b)
 {
     string res;
     int n = a.size();
@@ -42,7 +42,7 @@ string addString(string a,string b)
 
 
 
-string  stringMultiply(string a, string b)
+string  stringMultiply(string& a, string& b)
 {
     int n = a.size();
     int m = b.size();
