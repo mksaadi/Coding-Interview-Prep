@@ -9,36 +9,33 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-//Create a Node data type...//
+
+
 struct Node
 {
     int data;
     Node* link;
 };
 
-Node * Head = NULL;		// Indicates an empty list...//
+Node * Head = NULL;		
 
 
-//Insert a value at the end//
+
 
 void Insert_Bottom(int x)
 {
-    Node * temp = new Node;     //Declaring the new node//
+    Node * temp = new Node;    
     temp->data = x;
-    //Set the data field equals to the value passed in the function//
+   
 
-    //Fixing the links//
+    temp->link = NULL;			
 
-    temp->link = NULL;			//When the element is at the end the link of that Node will always be NULL...//
-
-    if (Head == NULL)     //Corner Case..Head==NULL means empty list...//
+    if (Head == NULL)    
     {
-        Head=temp;//and our job is done...//
+        Head=temp;
         return;
     }
-    //Otherwise :( //
-
-    //Declare a new pointer to node that will help us getting to the end of the list..//
+   
 
     Node *temp2 = Head;
 
@@ -46,19 +43,15 @@ void Insert_Bottom(int x)
     {
         temp2 = temp2->link;
     }
-    //Just set the new node as the link of the last node//
+    
     temp2->link = temp;
 
 
-}//End of Insert_Bottom//
+}
 
 
 
-//Printing function///
 
-// Traverse the whole list holding the head as pivot...//
-// and of course print the elements as we go//
-// one additional thing here is we can count the node with a counter variable..//
 void Print_List()
 {
     int count = 0;
@@ -79,23 +72,19 @@ void Print_List()
         cout << "\n" << "There is " << count << " element in the list.\n";
     }
 
-}//End of Print_List//
-
-
-//Insert_Top
+}
 
 void Insert_Top(int x)
 {
-    //declare a new node//
+  
     Node * temp = new Node;
     temp->data = x;
     temp->link = Head;
-    Head = temp;//New node is the head now..//
-}//End of Insert_Top//
+    Head = temp;
+}
 
 
 
-//Insert_after_a_number//
 
 void Insert_After(int number, int insert_value)
 {
@@ -123,18 +112,15 @@ void Insert_After(int number, int insert_value)
         cout << "The reference number wasn't found in the list.\n";
     }
 
-}//End of function Insert_After//
-
-
-//Insert Before///
+}
 
 
 void Insert_Before(int ref, int value)
 {
 
     int found = 0;
-    Node * current = Head;//To traverse the list//
-    Node * previous = Head;//To keep track of the previous node//
+    Node * current = Head;
+    Node * previous = Head;
     while (current != NULL)
     {
 
@@ -166,11 +152,11 @@ void Insert_Before(int ref, int value)
 
 
 
-}//End of Insert_Before//
+}
 
 
 
-//Delete Node//
+
 
 void Delete_by_Number(int num)
 {
@@ -199,11 +185,8 @@ void Delete_by_Number(int num)
     if (found == 0)
         cout << "Number is not in the list.\n";
 
-}//End of Delete_by_NUmber
+}
 
-
-//Count function//
-//This function takes the Head node and returns how many nodes are in the list//
 
 int count_Node(Node * temp)
 {
@@ -214,9 +197,8 @@ int count_Node(Node * temp)
         temp = temp->link;
     }
     return cnt;
-}//
+}
 
-//Insert at a particualar position(n-th position)//
 
 void Insert_at_any_Position(int pos, int value)
 {
@@ -247,16 +229,16 @@ void Insert_at_any_Position(int pos, int value)
     }
 
 
-}//End of Insert at any position//
+}
 
 
 
-///The main///
+
 
 int main()
 {
     int menu, pos, value, x,ref,num;
-    cout << "Chose your option wisely.\n";
+    cout << "Chose your option :\n";
     cout << "Press 1 to Insert  a vulue at the end of the list.\n";
     cout << "Press 2 to Insert  a vulue at the top of the list.\n";
     cout << "Press 3 to Insert  a vulue after a specific number of the list.\n";

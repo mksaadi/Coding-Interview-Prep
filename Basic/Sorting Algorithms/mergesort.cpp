@@ -34,60 +34,57 @@ const long long mod = 1e9 + 7;
     cout.setf(std::ios::fixed, std::ios::floatfield); \
     cout.precision(x);
 
-#define N 101
 
-int x[N], c[N];
-
-int n;
-
-void merge(int i, int m, int j)
+void merge(int l,int mid,int r,vector<int>& v)
 {
-    int p = i;
-    int q = m + 1;
-    int r = i;
-
-    while (p <= m && q <= j)
+    vector<int>res;
+    int i = l;
+    int j = mid+1;
+    while(i<=mid && j<=r)
     {
-        if (x[p] <= x[q])
+        if(v[i]<=v[j])
         {
-            c[r++] = x[p++];
+            res.push_back(v[i]);;
+            i++;
         }
         else
         {
-            c[r++] = x[q++];
+            res.push_back(v[j]);
+            j++;
         }
     }
-    while (p <= m)
+    while(i<=mid)
     {
-        c[r++] = x[p++];
+        res.push_back(v[i]);
+        i++;
     }
-
-    while (q <= j)
+    while(j<=r)
     {
-        c[r++] = x[q++];
+        res.push_back(v[j]);
+        j++;
     }
-
-    for (int f = i; f <= j; f++)
+    for(int i=l,j=0;i<=r;i++,j++)
     {
-        x[f] = c[f];
+        v[i] = res[j];
     }
 }
 
-void mergesort(int i, int j)
+void mergesort(int l,int r,vector<int>&v)
 {
-    if (i != j)
-    {
-        int m = (i + j) / 2;
-        mergesort(i, m);
-        mergesort(m + 1, j);
-        merge(i, m, j);
-    }
+    if(l>=r)return;
+    int mid = (l+r)/2;
+    mergesort(l,mid,v);
+    mergesort(mid+1,r,v);
+    merge(l,mid,r,v);
 }
+
 
 int main()
 {
     FastIO;
+    int n;
     cin >> n;
+    vector<int>x(n);
     for (int i = 0; i < n; i++)
     {
         cin >> x[i];
@@ -99,7 +96,7 @@ int main()
         cout << x[i] << " ";
     }
     cout << "\n";
-    mergesort(0, n - 1);
+    mergesort(0,n-1,x);
     cout << "After Sorting :  \n";
     for (int i = 0; i < n; i++)
     {
