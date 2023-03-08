@@ -87,7 +87,7 @@ void printList(ListNode *head)
 
 ListNode* oddEvenList(ListNode *head)
 {
-   if( head == NULL)return head;
+   if( head == nullptr)return head;
    ListNode *first = head;
    ListNode *second = head->next;
    ListNode *track = second;

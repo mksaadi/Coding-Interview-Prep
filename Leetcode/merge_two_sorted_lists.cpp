@@ -1,243 +1,181 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll=long long;
-using ull=unsigned  long long;
-using pi=pair<int,int>;
-using pl=pair<ll,ll>;
-using vi=vector<int>;
-using vl=vector<ll>;
-using vpi=vector<pi>;
-using vpl=vector<pl>;
+using ll = long long;
+using ull = unsigned long long;
+using pi = pair<int, int>;
+using pl = pair<ll, ll>;
+using vi = vector<int>;
+using vl = vector<ll>;
+using vpi = vector<pi>;
+using vpl = vector<pl>;
 using ld = long double;
 #define ff first
+#define nl "\n"
 #define ss second
 #define mp make_pair
 #define pb push_back
 #define all(x) (x).begin(), (x).end()
-#define FastIO ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-#define print(v) for(auto x:v){cout<<x<<" ";}cout<<endl; //print the vector
-const long long INF = 2000000000000000000LL;      // 2e18
+#define rall(x) (x).rbegin(), (x).rend()
+#define FastIO                        \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(0);
+#define print(v)          \
+    for (auto x : v)      \
+    {                     \
+        cout << x << " "; \
+    }                     \
+    cout << "\n";
+const long long INF = 2000000000000000000LL;
 const long double EPS = 1e-9;
-const long long mod = 1e9+7;
-#define yes cout<<"YES"<<endl
-#define no cout<<"NO"<<endl
-//cout.setf( std::ios::fixed, std:: ios::floatfield );               // floatfield not set
-//cout.precision(10);
+const long long mod = 1e9 + 7;
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
+#define set_precision(x)                              \
+    cout.setf(std::ios::fixed, std::ios::floatfield); \
+    cout.precision(x);
 
-struct ListNode {
+struct ListNode
+{
     int val;
     ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-
-ListNode* list1=NULL;
-
-ListNode* list2=NULL;
-
-ListNode* list3=NULL;
-
-
-
-
-
-void insert_bottom(int val,ListNode* &starting_address)
+ListNode *pushBack(ListNode *head, int val)
 {
-    ListNode* new_node = new ListNode;
-    new_node->next = NULL;
-    new_node->val = val;
- 
-    ListNode *temp = starting_address;
-
-    if(starting_address==NULL)
+    ListNode *newNode = new ListNode;
+    newNode->next = NULL;
+    newNode->val = val;
+    if (head == NULL)
     {
-        starting_address = new_node;
-        return;
+        head = newNode;
+        return head;
     }
-
-    while(1)
+    ListNode *temp = head;
+    while (1)
     {
-        if(temp->next==NULL)
+        if (temp->next == NULL)
         {
-            temp->next=new_node;
-            return;
+            temp->next = newNode;
+            return head;
         }
         temp = temp->next;
     }
 }
 
-
-void print_list(ListNode* starting_address)
+void printList(ListNode *head)
 {
-    while(starting_address!=NULL)
+    if (head == NULL)
     {
-        cout<<starting_address->val<<" ";
-        starting_address = starting_address->next;
+        cout << "EMPTY!!\n";
+        return;
     }
-    cout<<"\n";
-    return;
+    ListNode *temp = head;
+    while (1)
+    {
+        if (temp == NULL)
+        {
+            cout << "\n";
+            return;
+        }
+        else
+        {
+            cout << temp->val << " ";
+            temp = temp->next;
+        }
+    }
+}
+ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
+{
+    ListNode *track = new ListNode;
+    track->val = -1;
+    ListNode *cur = track;
+
+    while (list1 && list2)
+    {
+        if (list1->val < list2->val)
+        {
+            cur->next = list1;
+            list1 = list1->next;
+        }
+        else
+        {
+            cur->next = list2;
+            list2 = list2->next;
+        }
+        cur = cur->next;
+    }
+    if (list1)
+    {
+        cur->next = list1;
+    }
+    else
+        cur->next = list2;
+
+    return track->next;
 }
 
+ListNode *getMiddle(ListNode *head)
+{
+    ListNode *fast = head->next;
+    ListNode *slow = head;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+ListNode *sortList(ListNode *head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    ListNode *left = head;
+    ListNode *right = getMiddle(head);
+    // split left from right
 
-// solve function
-ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-     ListNode * temp1 = list1;
-     ListNode * temp2 = list2;
-     ListNode * merged = NULL;
+    ListNode *temp = right->next;
+    right->next = NULL;
+    right = temp;
 
-        while(1)
-        {
-            if(temp1 == NULL || temp2 == NULL)
-            {
-                break;
-            }
-            if(temp1->val <= temp2->val)
-            {
-                if(merged==NULL)
-                {
-                   ListNode * newNode = new ListNode();
-                   newNode->val = temp1->val;
-                   newNode->next = NULL;
-                   merged = newNode;
-                  
-                }
-                else
-                {
-                      ListNode * newNode = new ListNode();
-                      newNode->val = temp1->val;
-                      newNode->next = NULL;
-                      //push _back the newnode
-
-                      ListNode* t = merged;
-                      while(1)
-                      {
-                         if(t->next == NULL)
-                         {
-                            t->next = newNode;
-                            break;
-                         }
-                         t = t->next;
-                      }
-                }
-                temp1 = temp1->next;
-              
-            }
-            else 
-            {
-                if(merged==NULL)
-                {
-                    ListNode * newNode = new ListNode();
-                    newNode->val = temp2->val;
-                    newNode->next = NULL;
-                    merged = newNode;
-                }
-                else 
-                {
-                       ListNode *  newNode = new ListNode();
-                       newNode->val = temp2->val;
-                       newNode->next = NULL;
-                       ListNode* t = merged;
-                      while(1)
-                      {
-                         if(t->next == NULL)
-                         {
-                            t->next = newNode;
-                            break;
-                         }
-                         t = t->next;
-                      }
-                }
-                temp2 = temp2->next;
-              
-            }
-        }
-
-            while(temp1!= NULL)
-            {
-                
-                if(merged==NULL)
-                {
-                    ListNode * newNode = new ListNode();
-                    newNode->val = temp1->val;
-                    newNode->next = NULL;
-                    merged = newNode;
-                }
-                else
-                {
-                    ListNode * newNode = new ListNode();
-                    newNode->val = temp1->val;
-                    newNode->next = NULL;
-                     ListNode* t = merged;
-                      while(1)
-                      {
-                         if(t->next == NULL)
-                         {
-                            t->next = newNode;
-                            break;
-                         }
-                         t = t->next;
-                      }
-                }
-                temp1 = temp1->next;
-            }
-        
-        
-     
-            while(temp2!= NULL)
-            {
-                 
-                if(merged==NULL)
-                {
-                    ListNode * newNode = new ListNode();
-                    newNode->val = temp2->val;
-                    newNode->next = NULL;
-                    merged = newNode;
-                }
-                else
-                {
-                     ListNode * newNode = new ListNode();
-                     newNode->val = temp2->val;
-                     newNode->next = NULL;
-                     ListNode* t = merged;
-                      while(1)
-                      {
-                         if(t->next == NULL)
-                         {
-                            t->next = newNode;
-                            break;
-                         }
-                         t = t->next;
-                      }
-                }
-                temp2 = temp2->next;
-            }
-
-            return merged;
-    
+    left = sortList(left);
+    right = sortList(right);
+    return mergeTwoLists(left, right);
 }
 
 int main()
 {
- FastIO;
- int n,m;
- cin>>n>>m;
- for(int i=0;i<n;i++)
- {
-    int x;
-    cin>>x;
-    insert_bottom(x,list1);
- }
- for(int i=0;i<m;i++)
- {
-    int x;
-    cin>>x;
-    insert_bottom(x,list2);
- }
+    FastIO;
+    int n;
+    cin >> n;
+    ListNode *list1 = NULL;
 
-  ListNode* merged_list = mergeTwoLists(list1,list2);
-
- // print_list(list1);
- // print_list(list2);
-  print_list(merged_list);
-
- return 0;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        list1 = pushBack(list1, x);
+    }
+    // for (int i = 0; i < n; i++)
+    // {
+    //     int x;
+    //     cin >> x;
+    //     list2 = pushBack(list2, x);
+    // }
+    // testing individual helper functions
+    // printList(list1);
+    // cout << getMiddle(list1) << "\n";
+    // printList(list2);
+    // cout << getMiddle(list2) << "\n";
+    // ListNode *merged = mergeTwoLists(list1, list2);
+    // printList(merged);
+    // cout << getMiddle(merged) << "\n";
+    printList(list1);
+    printList(sortList(list1));
+    
+    return 0;
 }
