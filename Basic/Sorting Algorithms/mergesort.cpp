@@ -35,9 +35,8 @@ const long long mod = 1e9 + 7;
     cout.precision(x);
 
 
-int merge(int l,int mid,int r,vector<int>& v)
+void merge(int l,int mid,int r,vector<int>& v)
 {
-    int cnt = 0;
     vector<int>res;
     int i = l;
     int j = mid+1;
@@ -45,35 +44,33 @@ int merge(int l,int mid,int r,vector<int>& v)
     {
         if(v[i]<=v[j])
         {
-            res.push_back(v[i]);;
-            i++;
+            res.push_back(v[i++]);;
+            
         }
         else
         {
-            res.push_back(v[j]);
-            j++;
+            res.push_back(v[j++]);
         }
     }
     while(i<=mid)
     {
-        res.push_back(v[i]);
-        i++;
+        res.push_back(v[i++]);
     }
     while(j<=r)
     {
-        res.push_back(v[j]);
-        j++;
+        res.push_back(v[j++]);
     }
-    for(int i=l,j=0;i<=r;i++,j++)
+    j = 0;
+    for(int i=l;i<=r;i++)
     {
-        v[i] = res[j];
+        v[i] = res[j++];
     }
 }
 
 void mergesort(int l,int r,vector<int>&v)
 {
     if(l>=r)return;
-    int mid = (l+(r-l)/2);
+    int mid = l+(r-l)/2;
     mergesort(l,mid,v);
     mergesort(mid+1,r,v);
     merge(l,mid,r,v);

@@ -1,29 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void plusOneHelper(vector<int> &digits,int last,int add)
+void plusOneHelper(vector<int> &digits, int last, int add)
 {
-    if(last<0)
+    if (last < 0)
     {
-        if(add==0)
+        if (add == 0)
         {
             return;
         }
         else
         {
-            digits.insert(digits.begin(),add);
+            digits.insert(digits.begin(), add);
             return;
         }
     }
-    digits[last]+=add;
-    if(digits[last]>9)
+    digits[last] += add;
+    if (digits[last] > 9)
     {
-        int carry = digits[last]/10;
-        digits[last]%=10;
+        int carry = digits[last] / 10;
+        digits[last] %= 10;
         last--;
-        plusOneHelper(digits,last,carry);
+        plusOneHelper(digits, last, carry);
     }
-    else 
+    else
     {
         return;
     }
@@ -31,7 +31,7 @@ void plusOneHelper(vector<int> &digits,int last,int add)
 vector<int> plusOne(vector<int> &digits)
 {
     int n = digits.size();
-    plusOneHelper(digits,n-1,1);
+    plusOneHelper(digits, n - 1, 1);
     return digits;
 }
 int main()
@@ -45,10 +45,10 @@ int main()
     {
         cin >> digits[i];
     }
-    vector<int> result = plusOne(digits);
-    for (int i = 0; i < result.size(); i++)
+    digits = plusOne(digits);
+    for (int i = 0; i < digits.size(); i++)
     {
-        cout<<result[i]<<" ";
+        cout << digits[i] << " ";
     }
     return 0;
 }
