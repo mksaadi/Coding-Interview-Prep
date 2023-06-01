@@ -87,10 +87,10 @@ void printList(ListNode *head)
         }
     }
 }
+
 ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
 {
     ListNode *track = new ListNode;
-    track->val = -1;
     ListNode *cur = track;
 
     while (list1 && list2)
@@ -128,6 +128,7 @@ ListNode *getMiddle(ListNode *head)
     }
     return slow;
 }
+
 ListNode *sortList(ListNode *head)
 {
     if (head == NULL || head->next == NULL)
@@ -176,6 +177,6 @@ int main()
     // cout << getMiddle(merged) << "\n";
     printList(list1);
     printList(sortList(list1));
-    
+
     return 0;
 }
