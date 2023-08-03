@@ -30,13 +30,14 @@ int main()
 {
  string s;cin>>s;
  int best = 0;
- for(int i=0;i<s.size();i++)
+ int cur = 1;
+ for(int i=0;i+1<s.size();i++)
  {
-    int cur = 1;
-    while(i+1<s.size() && s[i]==s[i+1]){
+    if(s[i]==s[i+1])
+    {
         cur++;
-        i++;
     }
+    else cur = 1;
     best  = max(best,cur);
  }
  cout<<best<<"\n";

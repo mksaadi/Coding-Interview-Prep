@@ -34,22 +34,37 @@ const long long mod = 1e9 + 7;
     cout.setf(std::ios::fixed, std::ios::floatfield); \
     cout.precision(x);
 
-ll modpow(ll x, ll n)
+void plusMinus(vector<int> arr)
 {
-    if (n == 0LL)
-        return 1LL % mod;
-    ll u = modpow(x, n / 2LL);
-    u = (u * u) % mod;
-    if (n % 2LL == 1LL)
-        u = (u * x) % mod;
-    return u;
+    int plus = 0;
+    int minus = 0;
+    int zero = 0;
+    int n = arr.size();
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == 0)
+            zero++;
+        else if (arr[i] > 0)
+            plus++;
+        else
+            minus++;
+    }
+    cout << double(plus) / double(n) << "\n";
+    cout << double(minus) / double(n) << "\n";
+    cout << double(zero) / double(n) << "\n";
 }
 
 int main()
 {
     FastIO;
-    ll t;
-    cin >> t;
-    cout << modpow(2LL, t) << "\n";
+    set_precision(6);
+    int n;
+    cin >> n;
+    vi arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    plusMinus(arr);
     return 0;
 }

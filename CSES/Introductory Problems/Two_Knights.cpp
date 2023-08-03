@@ -28,12 +28,14 @@ const long long mod = 1e9+7;
 
 void solve(ll n)
 {
-    // number of ways to choose 2 knights in a (n*n) board.
+    // number of ways to place 2 knights in a (n*n) board.
     // there are (n*n) squares. so it is (n*n)C2.
     ll sqares = (n*n);
     ll all  = (sqares*(sqares-1))/2;
+    // every time a kinght attack another knight it creates a 3*2 or 2*3 area.
     /// number of 3*2 and 2*3 region in an (n*n)grid = 2*(n-1)*(n-2)
-    // two ways to position the knights in an (3*2) regioni so that they attck each other
+    // every 3*2 and 2*3 region has 2 combinations where 2 knights can attack each other.
+
     ll attacking = 4*(n-1)*(n-2);
     cout<<all-attacking<<"\n";
 }

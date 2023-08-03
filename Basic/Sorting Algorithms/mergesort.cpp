@@ -1,104 +1,71 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-using ull = unsigned long long;
-using pi = pair<int, int>;
-using pl = pair<ll, ll>;
-using vi = vector<int>;
-using vl = vector<ll>;
-using vpi = vector<pi>;
-using vpl = vector<pl>;
-using ld = long double;
-#define ff first
-#define nl "\n"
-#define ss second
-#define mp make_pair
-#define pb push_back
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
 #define FastIO                        \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-#define print(v)          \
-    for (auto x : v)      \
-    {                     \
-        cout << x << " "; \
-    }                     \
-    cout << "\n";
-const long long INF = 2000000000000000000LL;
-const long double EPS = 1e-9;
-const long long mod = 1e9 + 7;
-#define yes cout << "YES\n"
-#define no cout << "NO\n"
-#define set_precision(x)                              \
-    cout.setf(std::ios::fixed, std::ios::floatfield); \
-    cout.precision(x);
+#define nl "\n"
+#define all(x) (x).begin(), (x).end()
 
-
-void merge(int l,int mid,int r,vector<int>& v)
+void Merge(int left, int mid, int right, vector<int> &v)
 {
-    vector<int>res;
-    int i = l;
-    int j = mid+1;
-    while(i<=mid && j<=r)
+    vector<int> temp;
+    int i = left;
+    int j = mid + 1;
+    while (i <= mid && j <= right)
     {
-        if(v[i]<=v[j])
+        if (v[i] < v[j])
         {
-            res.push_back(v[i++]);;
-            
+            temp.push_back(v[i++]);
         }
         else
         {
-            res.push_back(v[j++]);
+            temp.push_back(v[j++]);
         }
     }
-    while(i<=mid)
+    while (i <= mid)
     {
-        res.push_back(v[i++]);
+        temp.push_back(v[i++]);
     }
-    while(j<=r)
+    while (j <= right)
     {
-        res.push_back(v[j++]);
+        temp.push_back(v[j++]);
     }
-    j = 0;
-    for(int i=l;i<=r;i++)
+    int x = 0;
+    for (int k = left; k <= right; k++)
     {
-        v[i] = res[j++];
+        v[k] = temp[x++];
     }
 }
 
-void mergesort(int l,int r,vector<int>&v)
+void MergeSort(int left, int right, vector<int> &v)
 {
-    if(l>=r)return;
-    int mid = l+(r-l)/2;
-    mergesort(l,mid,v);
-    mergesort(mid+1,r,v);
-    merge(l,mid,r,v);
+    if (left >= right)
+        return;
+    int mid = left + (right - left) / 2;
+    MergeSort(left, mid, v);
+    MergeSort(mid + 1, right, v);
+    Merge(left, mid, right, v);
 }
-
 
 int main()
 {
     FastIO;
     int n;
     cin >> n;
-    vector<int>x(n);
+    vector<int> v(n);
+    cout << "Before Sorting : \n";
     for (int i = 0; i < n; i++)
     {
-        cin >> x[i];
+        cin >> v[i];
+        cout << v[i] << " ";
     }
-
-    cout << "Before Sorting :  \n";
+    cout << nl;
+    MergeSort(0, n - 1, v);
+    cout << "After Sorting : \n";
     for (int i = 0; i < n; i++)
     {
-        cout << x[i] << " ";
-    }
-    cout << "\n";
-    mergesort(0,n-1,x);
-    cout << "After Sorting :  \n";
-    for (int i = 0; i < n; i++)
-    {
-        cout << x[i] << " ";
+        cout << v[i] << " ";
     }
     cout << nl;
     return 0;

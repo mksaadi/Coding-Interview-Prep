@@ -2,28 +2,31 @@
 using namespace std;
 using ll = long long;
 
-void solve(ll x, ll y)
+ll solve(ll row, ll col)
 {
-    if (x % 2LL == 0LL && y <= x)
+    ll ans;
+    /// if row is even number and col<=row
+    if (row % 2 == 0 && col <= row)
     {
-        cout << (x * x) - (y - 1LL) << "\n";
-        return;
+        ans = (row * row) - col + 1;
+        return ans;
     }
-    if (y & 1LL && x <= y)
+    /// if col is odd and row<=col
+    else if (col % 2 == 1 && row <= col)
     {
-        cout << (y * y) - (x - 1LL) << "\n";
-        return;
+        ans = (col * col) - row + 1;
+        return ans;
     }
-    if (x & 1LL && y <= x)
+    /// if col is even
+    else if (col % 2 == 0 && row <= col)
     {
-
-        cout << ((x - 1LL) * (x - 1LL)) + y << "\n";
-        return;
+        ans = ((col - 1) * (col - 1)) + row;
+        return ans;
     }
-    if (y % 2LL == 0LL && x <= y)
+    else if (row % 2 == 1 && col <= row)
     {
-        cout << ((y - 1LL) * (y - 1LL)) + x << "\n";
-        return;
+        ans = ((row - 1) * (row - 1)) + col;
+        return ans;
     }
 }
 
@@ -37,7 +40,7 @@ int main()
     {
         ll x, y;
         cin >> x >> y;
-        solve(x, y);
+        cout << solve(x, y) << "\n";
     }
     return 0;
 }

@@ -40,17 +40,21 @@ int main()
     ll n;
     cin >> n;
     cout << n << " ";
-    while (n != 1)
+    while (true)
     {
-        if (n & 1)
+        if (n == 1)
+        {
+            cout << n << "\n";
+            break;
+        }
+        if (n & 1LL)
         {
             n = 3LL * n + 1LL;
         }
         else
-            n = n / 2;
+            n = n / 2LL;
         cout << n << " ";
     }
-    cout << "\n";
 
     return 0;
 }

@@ -34,22 +34,37 @@ const long long mod = 1e9 + 7;
     cout.setf(std::ios::fixed, std::ios::floatfield); \
     cout.precision(x);
 
-ll modpow(ll x, ll n)
+int hIndex(vector<int> &citations)
 {
-    if (n == 0LL)
-        return 1LL % mod;
-    ll u = modpow(x, n / 2LL);
-    u = (u * u) % mod;
-    if (n % 2LL == 1LL)
-        u = (u * x) % mod;
-    return u;
+    int n = citations.size();
+    int h = n;
+    sort(citations.begin(),citations.end());
+    for(int i=0;i<n;i++)
+    {
+        if(citations[i]<h)
+        {
+            h--;
+        }
+        else 
+        {
+            h = min(h,n-i);
+            break;
+        }
+    }
+    return h;
+
 }
 
 int main()
 {
     FastIO;
-    ll t;
+    int t;
     cin >> t;
-    cout << modpow(2LL, t) << "\n";
+    vector<int> citations(t);
+    for (int i = 0; i < t; i++)
+    {
+        cin >> citations[i];
+    }
+    cout << hIndex(citations) << "\n";
     return 0;
 }
