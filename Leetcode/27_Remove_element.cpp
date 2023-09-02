@@ -7,7 +7,7 @@ using ll = long long;
 #define nl "\n"
 #define all(x) (x).begin(), (x).end()
 
-// if we had to keep all the elements in the array 
+// if we had to keep all the elements in the array
 // int removeElement(vector<int> &nums, int val)
 // {
 //     int n = nums.size();
@@ -43,7 +43,7 @@ using ll = long long;
 //         {
 //             return n-1;
 //         }
-//         else 
+//         else
 //         {
 //             swap(nums[start],nums[n-1]);
 //             return n-1;
@@ -70,43 +70,57 @@ using ll = long long;
 //     return k;
 // }
 
-  // 
-  int removeElement(vector<int>& nums, int val) {
-        int n = nums.size();
-        if(n==0)return 0;
-        vector <bool> match(n);
-        int k = 0;
-        for(int i=0;i<n;i++)
+//
+//   int removeElement(vector<int>& nums, int val) {
+//         int n = nums.size();
+//         if(n==0)return 0;
+//         vector <bool> match(n);
+//         int k = 0;
+//         for(int i=0;i<n;i++)
+//         {
+//             if(nums[i]==val)
+//             {
+//                 match[i] = 1;
+//             }
+//         }
+//         for(int i=0;i<n;i++)
+//         {
+//             if(match[i])
+//             {
+//                 nums.erase(nums.begin()+(i-k));
+//                 k++;
+//             }
+//         }
+//         return nums.size();
+//     }
+
+// best and concise solution
+int removeElement(vector<int> &nums, int val)
+{
+    int k = 0;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        if (nums[i] != val)
         {
-            if(nums[i]==val)
-            {
-                match[i] = 1;
-            }
+            nums[k++] = nums[i];
         }
-        for(int i=0;i<n;i++)
-        {
-            if(match[i])
-            {
-                nums.erase(nums.begin()+(i-k));
-                k++;
-            }
-        }
-        return nums.size();
     }
+    return k;
+}
 
 int main()
 {
     FastIO;
     int n;
     cin >> n;
-    vector<int> nums(n);
-    for(int i=0;i<n;i++)
-    {
-        cin>>nums[i];
-    }
-    
     int val;
     cin >> val;
+    vector<int> nums(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> nums[i];
+    }
+
     cout << removeElement(nums, val) << "\n";
     for (int i = 0; i < n; i++)
     {
