@@ -9,13 +9,43 @@ using ll = long long;
 
 bool isValidSudoku(vector<vector<char>> &board)
 {
-    //TBD
+    map<pair<int, int>, bool> seen_in_col;
+    map<pair<int, int>, bool> seen_in_row;
+    map<vector<int>, bool> seen_in_sub_matrix;
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            if (board[i][j] != '.')
+            {
+                if (seen_in_row[{i, int(board[i][j] - '0')}])
+                {
+                    return false;
+                }
+                seen_in_row[{i, int(board[i][j] - '0')}] = true;
+                if (seen_in_col[{j, int(board[i][j] - '0')}])
+                {
+                    return false;
+
+                }
+                seen_in_col[{j, int(board[i][j] - '0')}] = true;
+                int sub_row = i / 3;
+                int sub_col = j / 3;
+                if (seen_in_sub_matrix[{sub_row, sub_col, int(board[i][j] - '0')}])
+                {
+                    return false;
+                }
+                seen_in_sub_matrix[{sub_row, sub_col, int(board[i][j] - '0')}] = true;
+            }
+        }
+    }
+    return true;
 }
 
 int main()
 {
     FastIO;
-    vector<vector<int>> matrix(9, vector<int>(9));
+    vector<vector<char>> matrix(9, vector<char>(9));
     for (int i = 0; i < 9; i++)
     {
         for (int j = 0; j < 9; j++)
@@ -25,7 +55,6 @@ int main()
         }
         cout << "\n";
     }
-   
 
     return 0;
 }
