@@ -25,6 +25,7 @@ void solve()
             sum += fib[i];
     }
 }
+ 
 int main()
 {
     FastIO;
