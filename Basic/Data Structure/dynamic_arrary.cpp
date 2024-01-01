@@ -8,6 +8,16 @@ using ll = long long;
 #define all(x) (x).begin(), (x).end()
 
 // create a data structure like Vector with array.
+// If we start with an array of size 1 and keep doubling the size with each overflow, for n pushes.. cost of copy will be
+
+//  (1 + 2 + 4 + 8 + ... + n/2 + n)
+//  = n *( 1+ 1/2 + 1/4 + 1/8 + ... 1/n)  -  taking out n
+// = n*2   - the expression in bracket above will evaluate to 2.
+
+// So, cost of copy in n pushes = O(n)
+// Cost of n normal pushes = O(n)  - each push takes constant time
+// Total cost of n pushes = O(n)
+// Average cost of 1 push = O(1).
 
 class DynamicArray
 {
