@@ -6,31 +6,32 @@ using ll = long long;
     cin.tie(0);
 #define nl "\n"
 #define all(x) (x).begin(), (x).end
-
-int removeDuplicates(vector<int> &A)
+int removeDuplicates(vector<int> &nums)
 {
-    int n = A.size();
-    if (n == 0)
-        return 0;
-    int occur = 1;
-    int index = 0;
-    for (int i = 1; i < n; i++)
+    int k = 1;
+    int freq = 1;
+    for (int i = 1; i < nums.size(); i++)
     {
-        if (A[index] == A[i])
+        if (nums[i] == nums[i - 1])
         {
-            if (occur == 2)
+            if (freq == 2)
             {
                 continue;
             }
-            occur++;
+            else
+            {
+                freq = 2;
+                nums[k++] = nums[i];
+            }
         }
         else
         {
-            occur = 1;
+            freq = 1;
+            nums[k++] = nums[i];
         }
-        A[++index] = A[i];
     }
-    return index + 1;
+
+    return k;
 }
 int main()
 {
