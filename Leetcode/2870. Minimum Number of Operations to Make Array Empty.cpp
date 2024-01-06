@@ -32,15 +32,8 @@ int minOperations(vector<int> &nums)
     return ans;
 }
 
-
 int main()
 {
     FastIO;
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
     return 0;
 }
