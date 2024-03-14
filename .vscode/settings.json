@@ -17,6 +17,7 @@
     "valarray": "cpp",
     "cmath": "cpp",
     "ratio": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "bitset": "cpp"
   }
 }

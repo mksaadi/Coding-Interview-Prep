@@ -7,12 +7,13 @@ using ll = long long;
 #define nl "\n"
 #define all(x) (x).begin(), (x).end()
 
+
 int find_k(vector<int> &nums)
 {
     int n = nums.size();
-    int l = 0; // bigger than nums[0]
-    int r = n; // smaller than nums[0]
-    while (l < r)
+    int l = -1; // bigger than nums[0]
+    int r = n;  // smaller than nums[0]
+    while (l + 1 < r)
     {
         int mid = (l + r) / 2;
         if (nums[mid] < nums[0])
@@ -21,23 +22,26 @@ int find_k(vector<int> &nums)
         }
         else
         {
-            l = mid + 1;
+            l = mid;
         }
     }
-    return l;
+    return l + 1;
 }
+
+
 int search(vector<int> &nums, int target)
 {
     int n = nums.size();
     int k = find_k(nums);
-
+    cout << "K = " << k << "\n";
+    int rotating_factor = k % n;
+    cout << "Rotating Factor =  " << rotating_factor << "\n";
     int l = 0;
     int r = n - 1;
-    int rf = (k % n);
     while (l <= r)
     {
-        int mid = (l + r + 1) / 2;
-        int r_mid = (mid + rf) % n;
+        int mid = (l + r) / 2;
+        int r_mid = (mid + rotating_factor) % n;
         if (nums[r_mid] == target)
         {
             return r_mid;
