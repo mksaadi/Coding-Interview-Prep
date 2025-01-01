@@ -23,26 +23,20 @@ ll max_possible_for_i(ll T, asst i)
     ll batches = T / batch_time;
     ll ballons_made_by_i = batches * zi;
     ll rem_time = T % batch_time;
-    if (rem_time > 0)
+    if ( rem_time > 0 )
     {
-        if (rem_time / ti >= zi)
-        {
-            ballons_made_by_i += zi;
-        }
-        else
-        {
-            ballons_made_by_i += (rem_time / ti);
-        }
+        ballons_made_by_i += min(zi, rem_time / ti);
     }
+
     return ballons_made_by_i;
 }
 
-bool isPossible(ll T, vector<asst> &v, ll m)
+bool isPossible(ll T, vector<asst>& v, ll m)
 {
-    if (T < 0)
+    if ( T < 0 )
         return false;
     ll total_ballons_made = 0;
-    for (int i = 0; i < v.size(); i++)
+    for ( int i = 0; i < v.size(); i++ )
     {
         ll ballons_made_by_i = max_possible_for_i(T, v[i]);
         total_ballons_made += ballons_made_by_i;
@@ -55,7 +49,7 @@ int main()
     ll m, n;
     cin >> m >> n;
     vector<asst> v(n);
-    for (int i = 0; i < n; i++)
+    for ( int i = 0; i < n; i++ )
     {
         asst a;
         cin >> a.t;
@@ -66,13 +60,13 @@ int main()
 
     ll low = -1; // impossible to do in low time
     ll high = 1; // always possible in high time
-    while (!isPossible(high, v, m))
+    while ( !isPossible(high, v, m) )
         high *= 2LL;
 
-    while (low + 1 < high)
+    while ( high - low > 1 )
     {
-        ll mid = low + (high - low) / 2;
-        if (isPossible(mid, v, m))
+        ll mid = low + ( high - low ) / 2;
+        if ( isPossible(mid, v, m) )
         {
             high = mid;
         }
@@ -82,16 +76,16 @@ int main()
     cout << high << "\n";
     // time takes to inflate all m ballons is high
     ll inflatedSoFar = 0;
-    for (int i = 0; i < n; i++)
+    for ( int i = 0; i < n; i++ )
     {
-        if (inflatedSoFar >= m)
+        if ( inflatedSoFar >= m )
         {
             cout << 0 << " ";
         }
         else
         {
             ll b = max_possible_for_i(high, v[i]);
-            if (inflatedSoFar + b <= m)
+            if ( inflatedSoFar + b <= m )
             {
                 cout << b << " ";
                 inflatedSoFar += b;

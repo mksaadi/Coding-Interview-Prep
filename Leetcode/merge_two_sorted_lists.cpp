@@ -37,26 +37,26 @@ const long long mod = 1e9 + 7;
 struct ListNode
 {
     int val;
-    ListNode *next;
+    ListNode* next;
     ListNode() : val(0), next(nullptr) {}
     ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
 
-ListNode *pushBack(ListNode *head, int val)
+ListNode* pushBack(ListNode* head, int val)
 {
-    ListNode *newNode = new ListNode;
+    ListNode* newNode = new ListNode;
     newNode->next = NULL;
     newNode->val = val;
-    if (head == NULL)
+    if ( head == NULL )
     {
         head = newNode;
         return head;
     }
-    ListNode *temp = head;
-    while (1)
+    ListNode* temp = head;
+    while ( 1 )
     {
-        if (temp->next == NULL)
+        if ( temp->next == NULL )
         {
             temp->next = newNode;
             return head;
@@ -65,17 +65,17 @@ ListNode *pushBack(ListNode *head, int val)
     }
 }
 
-void printList(ListNode *head)
+void printList(ListNode* head)
 {
-    if (head == NULL)
+    if ( head == NULL )
     {
         cout << "EMPTY!!\n";
         return;
     }
-    ListNode *temp = head;
-    while (1)
+    ListNode* temp = head;
+    while ( 1 )
     {
-        if (temp == NULL)
+        if ( temp == NULL )
         {
             cout << "\n";
             return;
@@ -88,14 +88,14 @@ void printList(ListNode *head)
     }
 }
 
-ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2)
 {
-    ListNode *track = new ListNode;
-    ListNode *cur = track;
+    ListNode* track = new ListNode;
+    ListNode* cur = track;
 
-    while (list1 && list2)
+    while ( list1 && list2 )
     {
-        if (list1->val < list2->val)
+        if ( list1->val < list2->val )
         {
             cur->next = list1;
             list1 = list1->next;
@@ -107,7 +107,7 @@ ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
         }
         cur = cur->next;
     }
-    if (list1)
+    if ( list1 )
     {
         cur->next = list1;
     }
@@ -117,11 +117,11 @@ ListNode *mergeTwoLists(ListNode *list1, ListNode *list2)
     return track->next;
 }
 
-ListNode *getMiddle(ListNode *head)
+ListNode* getMiddle(ListNode* head)
 {
-    ListNode *fast = head->next;
-    ListNode *slow = head;
-    while (fast && fast->next)
+    ListNode* fast = head->next;
+    ListNode* slow = head;
+    while ( fast && fast->next )
     {
         slow = slow->next;
         fast = fast->next->next;
@@ -129,17 +129,17 @@ ListNode *getMiddle(ListNode *head)
     return slow;
 }
 
-ListNode *sortList(ListNode *head)
+ListNode* sortList(ListNode* head)
 {
-    if (head == NULL || head->next == NULL)
+    if ( head == NULL || head->next == NULL )
     {
         return head;
     }
-    ListNode *left = head;
-    ListNode *right = getMiddle(head);
+    ListNode* left = head;
+    ListNode* right = getMiddle(head);
     // split left from right
 
-    ListNode *temp = right->next;
+    ListNode* temp = right->next;
     right->next = NULL;
     right = temp;
 
@@ -153,9 +153,9 @@ int main()
     FastIO;
     int n;
     cin >> n;
-    ListNode *list1 = NULL;
+    ListNode* list1 = NULL;
 
-    for (int i = 0; i < n; i++)
+    for ( int i = 0; i < n; i++ )
     {
         int x;
         cin >> x;

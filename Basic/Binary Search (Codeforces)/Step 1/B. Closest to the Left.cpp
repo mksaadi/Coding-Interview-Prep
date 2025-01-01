@@ -1,44 +1,45 @@
-// https://codeforces.com/edu/course/2/lesson/6/1/practice/contest/283911/problem/A
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-#define FastIO                        \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(0);
-#define nl "\n"
+#define FastIO ios_base::sync_with_stdio(false); cin.tie(0);
+#define nl "\n" 
 #define all(x) (x).begin(), (x).end()
 
-int binSearch(vector<ll> &v, ll target)
+ll n, k;
+vector<ll>v(100001);
+
+
+ll found(ll x)
 {
-    ll left = -1;        // v[left] will always be smaller or equal
-    ll right = v.size(); // v[right] will always be greater
-
-    while (right > left + 1)
+    ll left = -1;
+    ll right = n;
+    while ( right - left > 1 )
     {
-        ll mid = left + (right - left) / 2;
-        if (v[mid] <= target)
+        ll mid = left + ( right - left ) / 2;
+        if ( v[mid] <= x )
+        {
             left = mid;
-        else
-            right = mid;
+        }
+        else right = mid;
     }
-
-    return left + 1;
+    return max(0LL, left + 1);
 }
+
+
 
 int main()
 {
     FastIO;
-    ll n, k;
     cin >> n >> k;
-    vector<ll> v(n);
-    for (int i = 0; i < n; i++)
-        cin >> v[i];
-
-    vector<ll> q(k);
-    for (int i = 0; i < k; i++)
+    for ( int i = 0; i < n; i++ )
     {
-        cin >> q[i];
-        cout << binSearch(v, q[i]) << '\n';
+        cin >> v[i];
+    }
+    for ( int i = 0; i < k; i++ )
+    {
+        ll x;
+        cin >> x;
+        cout << found(x) << nl;
     }
 
     return 0;

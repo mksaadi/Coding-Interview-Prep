@@ -1,76 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-using ull = unsigned long long;
-using pi = pair<int, int>;
-using pl = pair<ll, ll>;
-using vi = vector<int>;
-using vl = vector<ll>;
-using vpi = vector<pi>;
-using vpl = vector<pl>;
-using ld = long double;
-#define ff first
-#define nl "\n"
-#define ss second
-#define mp make_pair
-#define pb push_back
-#define all(x) (x).begin(), (x).end()
-#define rall(x) (x).rbegin(), (x).rend()
 #define FastIO                        \
     ios_base::sync_with_stdio(false); \
     cin.tie(0);
-#define print(v)          \
-    for (auto x : v)      \
-    {                     \
-        cout << x << " "; \
-    }                     \
-    cout << "\n";
-const long long INF = 2000000000000000000LL;
-const long double EPS = 1e-9;
-const long long mod = 1e9 + 7;
-#define yes cout << "YES\n"
-#define no cout << "NO\n"
-#define set_precision(x)                              \
-    cout.setf(std::ios::fixed, std::ios::floatfield); \
-    cout.precision(x);
+#define nl "\n"
+#define all(x) (x).begin(), (x).end()
 
-int main()
+string isPossible(string str)
 {
-    FastIO;
-    string str;
-    cin >> str;
-    map<char, int> mp;
-    for (auto i : str)
+    map<char, int> freq;
+    bool has_odd_already = false;
+    for (auto c : str)
     {
-        mp[i]++;
+        freq[c]++;
     }
-    string pal;
     string first = "";
     string middle = "";
     string last = "";
-
-    bool odd_found = false;
-    for (auto i : mp)
+    for (auto i : freq)
     {
         if (i.second & 1)
         {
-            if (odd_found)
+            if (has_odd_already)
             {
-                cout << "NO SOLUTION\n";
-                exit(0);
+                return "NO SOLUTION";
             }
-            else
+            has_odd_already = true;
+            for (int j = 0; j < i.second; j++)
             {
-                odd_found = true;
-                for (int j = 0; j < i.second; j++)
-                {
-                    middle += i.first;
-                }
+                middle += i.first;
             }
         }
         else
         {
-            for (int j = 0; j < i.second / 2; j++)
+            for (int j = 0; j < (i.second / 2); j++)
             {
                 first += i.first;
                 last += i.first;
@@ -78,8 +42,14 @@ int main()
         }
     }
     reverse(all(last));
-    pal = first+middle+last;
-    cout<<pal<<"\n";
+    return (first + middle + last);
+}
 
+int main()
+{
+    FastIO;
+    string str;
+    cin >> str;
+    cout << isPossible(str) << nl;
     return 0;
 }

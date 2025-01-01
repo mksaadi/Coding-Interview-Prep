@@ -36,23 +36,14 @@ const long long mod = 1e9 + 7;
 
 int hIndex(vector<int> &citations)
 {
+    int ans = 0;
+    sort(citations.begin(), citations.end());
     int n = citations.size();
-    int h = n;
-    sort(citations.begin(),citations.end());
-    for(int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
-        if(citations[i]<h)
-        {
-            h--;
-        }
-        else 
-        {
-            h = min(h,n-i);
-            break;
-        }
+        ans = max(ans, min(citations[i], n - i));
     }
-    return h;
-
+    return ans;
 }
 
 int main()

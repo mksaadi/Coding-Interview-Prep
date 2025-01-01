@@ -12,8 +12,8 @@ void printBin(int n, int x)
 }
 
 int main()
-{
-   
+{   
+
     int n;
     cin >> n;
     vector<int> ans;
@@ -22,7 +22,7 @@ int main()
     {
         ans.push_back((i >> 1) ^ i);
     }
-   
+
     for (int i = 0; i < ans.size(); i++)
     {
         printBin(n, ans[i]);
