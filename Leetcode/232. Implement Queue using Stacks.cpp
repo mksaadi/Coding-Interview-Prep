@@ -11,17 +11,24 @@ class MyQueue
 {
     stack<int> stack1;
     stack<int> stack2;
-
-public:
+    int front;
+    public:
     MyQueue() {}
 
-    void push(int x) { stack1.push(x); }
+    void push(int x)
+    {
+        if ( stack1.empty() )
+        {
+            front = x;
+        }
+        stack1.push(x);
+    }
 
     int pop()
     {
-        if (stack2.empty())
+        if ( stack2.empty() )
         {
-            while (!stack1.empty())
+            while ( !stack1.empty() )
             {
                 stack2.push(stack1.top());
                 stack1.pop();
@@ -34,18 +41,14 @@ public:
 
     int peek()
     {
-        if (stack2.empty())
+        if ( !stack2.empty() )
         {
-            while (!stack1.empty())
-            {
-                stack2.push(stack1.top());
-                stack1.pop();
-            }
+            return stack2.top();
         }
-        return stack2.top();
+        return front;
     }
 
-    bool empty() { return (stack1.empty() && stack2.empty()); }
+    bool empty() { return ( stack1.empty() && stack2.empty() ); }
 };
 
 int main()

@@ -55,34 +55,26 @@ template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto
 
 void solve()
 {
-    int n, x;
-    cin >> n >> x;
-    vi prices(n), pages(n);
+    int n;
+    cin >> n;
+    vector<string> grid(n);
     for ( int i = 0; i < n; i++ )
     {
-        cin >> prices[i];
+        cin >> grid[i];
     }
-    for ( int i = 0; i < n; i++ )
-    {
-        cin >> pages[i];
-    }
-    int dp[n + 1][x + 1];
+    int dp[n][n];
     memset(dp, 0, sizeof(dp));
-    for ( int i = 1; i <= n; i++ )
+    dp[0][0] = ( grid[0][0] == '.' ? 1 : 0 );
+    for ( int i = 0; i < n; i++ )
     {
-        for ( int budget = 1; budget <= x; budget++ )
+        for ( int j = 0; j < n; j++ )
         {
-            if ( budget - prices[i - 1] >= 0 )
-            {
-                dp[i][budget] = max(dp[i - 1][budget], dp[i - 1][budget - prices[i - 1]] + pages[i - 1]);
-            }
-            else
-            {
-                dp[i][budget] = dp[i - 1][budget];
-            }
+            if ( i == 0 && j == 0 )continue;
+            if ( grid[i][j] == '*' ) continue;
+            dp[i][j] = ( i - 1 >= 0 ? ( dp[i - 1][j] % MOD ) : 0 ) + ( j - 1 >= 0 ? ( dp[i][j - 1] % MOD ) : 0 ) % MOD;
         }
     }
-    cout << dp[n][x] << nl;
+    cout << ( dp[n - 1][n - 1] ) % MOD << nl;
 }
 
 

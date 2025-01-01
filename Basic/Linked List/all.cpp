@@ -17,33 +17,33 @@ struct Node
     Node* link;
 };
 
-Node * Head = NULL;		
+Node* Head = NULL;
 
 
 
 
 void Insert_Bottom(int x)
 {
-    Node * temp = new Node;    
+    Node* temp = new Node;
     temp->data = x;
-   
 
-    temp->link = NULL;			
 
-    if (Head == NULL)    
+    temp->link = NULL;
+
+    if ( Head == NULL )
     {
-        Head=temp;
+        Head = temp;
         return;
     }
-   
 
-    Node *temp2 = Head;
 
-    while (temp2->link!=NULL)
+    Node* temp2 = Head;
+
+    while ( temp2->link != NULL )
     {
         temp2 = temp2->link;
     }
-    
+
     temp2->link = temp;
 
 
@@ -55,15 +55,15 @@ void Insert_Bottom(int x)
 void Print_List()
 {
     int count = 0;
-    Node * temp = Head;
+    Node* temp = Head;
     cout << "List is now : ";
-    while (temp!=NULL)
+    while ( temp != NULL )
     {
-        cout << temp->data<<" ";
+        cout << temp->data << " ";
         temp = temp->link;
         count++;
     }
-    if (count > 1)
+    if ( count > 1 )
     {
         cout << "\n" << "There are " << count << " elements in the list.\n";
     }
@@ -76,8 +76,8 @@ void Print_List()
 
 void Insert_Top(int x)
 {
-  
-    Node * temp = new Node;
+
+    Node* temp = new Node;
     temp->data = x;
     temp->link = Head;
     Head = temp;
@@ -89,12 +89,12 @@ void Insert_Top(int x)
 void Insert_After(int number, int insert_value)
 {
     int found = 0;
-    Node *temp = Head;
-    while (temp != NULL)
+    Node* temp = Head;
+    while ( temp != NULL )
     {
-        if (temp->data == number)
+        if ( temp->data == number )
         {
-            Node * temp2 = new Node;
+            Node* temp2 = new Node;
             temp2->data = insert_value;
             temp2->link = temp->link;
             temp->link = temp2;
@@ -107,7 +107,7 @@ void Insert_After(int number, int insert_value)
         }
 
     }
-    if (found == 0)
+    if ( found == 0 )
     {
         cout << "The reference number wasn't found in the list.\n";
     }
@@ -119,21 +119,21 @@ void Insert_Before(int ref, int value)
 {
 
     int found = 0;
-    Node * current = Head;
-    Node * previous = Head;
-    while (current != NULL)
+    Node* current = Head;
+    Node* previous = Head;
+    while ( current != NULL )
     {
 
-        if (Head->data == ref)
+        if ( Head->data == ref )
         {
             found = 1;
             Insert_Top(value);
             break;
         }
-        else if (current->data == ref)
+        else if ( current->data == ref )
         {
             found = 1;
-            Node * temp = new Node;
+            Node* temp = new Node;
             temp->data = value;
             previous->link = temp;
             temp->link = current;
@@ -145,7 +145,7 @@ void Insert_Before(int ref, int value)
             current = current->link;
         }
     }
-    if (found == 0)
+    if ( found == 0 )
     {
         cout << "The value you entered wasn't found in the list.\n";
     }
@@ -160,17 +160,17 @@ void Insert_Before(int ref, int value)
 
 void Delete_by_Number(int num)
 {
-    Node * current = Head;
-    Node * previous = Head;
+    Node* current = Head;
+    Node* previous = Head;
     int found = 0;
-    if (Head->data == num)
+    if ( Head->data == num )
     {
         Head = Head->link;
     }
-    while (current != NULL)
+    while ( current != NULL )
     {
 
-        if (current->data == num)
+        if ( current->data == num )
         {
             found = 1;
             previous->link = current->link;
@@ -182,16 +182,16 @@ void Delete_by_Number(int num)
             current = current->link;
         }
     }
-    if (found == 0)
+    if ( found == 0 )
         cout << "Number is not in the list.\n";
 
 }
 
 
-int count_Node(Node * temp)
+int count_Node(Node* temp)
 {
     int cnt = 0;
-    while (temp != NULL)
+    while ( temp != NULL )
     {
         cnt++;
         temp = temp->link;
@@ -203,19 +203,19 @@ int count_Node(Node * temp)
 void Insert_at_any_Position(int pos, int value)
 {
     int count = count_Node(Head);
-    if (pos <= count + 1 && pos >= 1)
+    if ( pos <= count + 1 && pos >= 1 )
     {
-        if (pos == 1)
+        if ( pos == 1 )
         {
             Insert_Top(value);
             return;
         }
         else
         {
-            Node * temp = Head;
-            Node * temp2 = new Node;
+            Node* temp = Head;
+            Node* temp2 = new Node;
             temp2->data = value;
-            for (int i = 0; i < pos - 2; i++)
+            for ( int i = 0; i < pos - 2; i++ )
             {
                 temp = temp->link;
             }
@@ -237,7 +237,7 @@ void Insert_at_any_Position(int pos, int value)
 
 int main()
 {
-    int menu, pos, value, x,ref,num;
+    int menu, pos, value, x, ref, num;
     cout << "Chose your option :\n";
     cout << "Press 1 to Insert  a vulue at the end of the list.\n";
     cout << "Press 2 to Insert  a vulue at the top of the list.\n";
@@ -246,34 +246,34 @@ int main()
     cout << "Press 5 to Insert  a vulue at a specific position of the list.\n";
     cout << "Press 6 to Delete  a vulue from the list.\n";
     cout << "Press 0 to Exit the program.\n";
-    while(1)
+    while ( 1 )
     {
 
         cin >> menu;
-        if (menu == 1)
+        if ( menu == 1 )
         {
             cout << "Enter a number : \n";
             cin >> x;
             Insert_Bottom(x);
             Print_List();
         }
-        else if (menu == 2)
+        else if ( menu == 2 )
         {
             cout << "Enter a number : \n";
             cin >> x;
             Insert_Top(x);
             Print_List();
         }
-        else if (menu == 3)
+        else if ( menu == 3 )
         {
             cout << "Enter the reference  number : \n";
             cin >> value;
             cout << "Enter a number to add after reference number: \n";
             cin >> x;
-            Insert_After(value,x);
+            Insert_After(value, x);
             Print_List();
         }
-        else if (menu == 4)
+        else if ( menu == 4 )
         {
             cout << "Enter the reference  number : \n";
             cin >> ref;
@@ -282,16 +282,16 @@ int main()
             Insert_Before(ref, value);
             Print_List();
         }
-        else if (menu == 5)
+        else if ( menu == 5 )
         {
             cout << "Enter the position number : \n";
-            cin >>pos;
+            cin >> pos;
             cout << "Enter a number to add at that position: \n";
             cin >> value;
-            Insert_at_any_Position(pos,value);
+            Insert_at_any_Position(pos, value);
             Print_List();
         }
-        else if (menu == 6)
+        else if ( menu == 6 )
         {
             cout << "Enter the number to delete : \n";
             cin >> num;
@@ -299,7 +299,7 @@ int main()
             Print_List();
 
         }
-        else if (menu == 0)
+        else if ( menu == 0 )
         {
             cout << "Bye Bye...!\n";
             break;
