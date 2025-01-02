@@ -51,66 +51,39 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-
-
-void solve()
+bool isVowel(char c)
 {
-    int n, m;
-    cin >> n >> m;
-    vi a(n);
-    for ( int i = 0; i < n; i++ )
-    {
-        cin >> a[i];
-    }
-    ll dp[n][m + 1];
-    memset(dp, 0, sizeof(dp));
-    if ( a[0] != 0 )
-    {
-        dp[0][a[0]] = 1;
-    }
-    else
-    {
-        for ( int i = 1; i <= m; i++ )
-        {
-            dp[0][i] = 1;
-        }
-    }
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+}
+
+vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+    int n = words.size();
+    vector<int>ans;
+    vector<int>pref(n, 0);
+    pref[0] = isVowel(words[0][0]) && isVowel(words[0][( int )( words[0].size() ) - 1]);
     for ( int i = 1; i < n; i++ )
     {
-        if ( a[i] != 0 )
+        pref[i] = pref[i - 1] + ( isVowel(words[i][0]) && isVowel(words[i][( int )( words[i].size() ) - 1]) );
+    }
+    for ( int i = 0; i < queries.size(); i++ )
+    {
+        int l = queries[i][0];
+        int r = queries[i][1];
+        if ( l == 0 )
         {
-            dp[i][a[i]] += ( dp[i - 1][a[i]] ) % MOD;
-            dp[i][a[i]] += ( a[i] - 1 >= 1 ? dp[i - 1][a[i] - 1] : 0LL ) % MOD;
-            dp[i][a[i]] += ( a[i] + 1 <= m ? dp[i - 1][a[i] + 1] : 0LL ) % MOD;
+            ans.push_back(pref[r]);
         }
         else
         {
-            for ( int j = 1; j <= m; j++ )
-            {
-                dp[i][j] += ( dp[i - 1][j] ) % MOD;
-                dp[i][j] += ( j - 1 >= 1 ? dp[i - 1][j - 1] : 0LL ) % MOD;
-                dp[i][j] += ( j + 1 <= m ? dp[i - 1][j + 1] : 0LL ) % MOD;
-            }
+            ans.push_back(pref[r] - pref[l - 1]);
         }
     }
-    ll ans = 0;
-    for ( int i = 1; i <= m; i++ )
-    {
-        ans += dp[n - 1][i];
-        ans %= MOD;
-    }
-    cout << ans << nl;
+    return ans;
 }
-
 
 int main()
 {
     FastIO;
-    int t = 1;
-    // cin >> t;
-    while ( t-- )
-    {
-        solve();
-    }
+    
     return 0;
 }

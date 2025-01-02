@@ -51,63 +51,43 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-
+int lengthOfLIS(vector<int>& nums) {
+    int len = 1;
+    vector<int> lis;
+    for ( int i = 0; i < nums.size(); i++ ) {
+        if ( lis.empty() ) {
+            lis.push_back(nums[i]);
+        }
+        else if ( lis.back() < nums[i] ) {
+            lis.push_back(nums[i]);
+            len++;
+        }
+        else {
+            int idx =
+                lower_bound(lis.begin(), lis.end(), nums[i]) - lis.begin();
+            lis[idx] = nums[i];
+        }
+    }
+    return len;
+}
 
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
     vi a(n);
     for ( int i = 0; i < n; i++ )
     {
         cin >> a[i];
     }
-    ll dp[n][m + 1];
-    memset(dp, 0, sizeof(dp));
-    if ( a[0] != 0 )
-    {
-        dp[0][a[0]] = 1;
-    }
-    else
-    {
-        for ( int i = 1; i <= m; i++ )
-        {
-            dp[0][i] = 1;
-        }
-    }
-    for ( int i = 1; i < n; i++ )
-    {
-        if ( a[i] != 0 )
-        {
-            dp[i][a[i]] += ( dp[i - 1][a[i]] ) % MOD;
-            dp[i][a[i]] += ( a[i] - 1 >= 1 ? dp[i - 1][a[i] - 1] : 0LL ) % MOD;
-            dp[i][a[i]] += ( a[i] + 1 <= m ? dp[i - 1][a[i] + 1] : 0LL ) % MOD;
-        }
-        else
-        {
-            for ( int j = 1; j <= m; j++ )
-            {
-                dp[i][j] += ( dp[i - 1][j] ) % MOD;
-                dp[i][j] += ( j - 1 >= 1 ? dp[i - 1][j - 1] : 0LL ) % MOD;
-                dp[i][j] += ( j + 1 <= m ? dp[i - 1][j + 1] : 0LL ) % MOD;
-            }
-        }
-    }
-    ll ans = 0;
-    for ( int i = 1; i <= m; i++ )
-    {
-        ans += dp[n - 1][i];
-        ans %= MOD;
-    }
-    cout << ans << nl;
+    cout << lengthOfLIS(a) << nl;
+
 }
-
-
 int main()
 {
     FastIO;
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while ( t-- )
     {
         solve();
