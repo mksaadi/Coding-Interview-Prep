@@ -51,54 +51,44 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-// Given an array of n and a number d. Your task is to find the maximum average of a subarray of length d.
 
-bool ok(double x, int d, vector<int>& a, int& start, int& end) {
-    double sum = 0, pre = 0, min_pre = 0;
-    for ( int i = 0; i < a.size(); i++ ) {
-        sum += a[i] - x;
-        if ( i >= d - 1 ) {
-            if ( sum - min_pre >= 0 ) {
-                end = i;
-                return true;
-            }
-            pre += a[i - d + 1] - x;
-            min_pre = min(min_pre, pre);
+int waysToSplitArray(vector<int>& a) {
+    int n = a.size();
+    long long left_sum = 0LL;
+    long long right_sum = accumulate(a.begin(), a.end(), 0LL);
+    // dbg(right_sum);
+    int ans = 0;
+    for ( int i = 0; i + 1 < n; i++ )
+    {
+        left_sum += a[i];
+        right_sum -= a[i];
+        if ( left_sum >= right_sum )
+        {
+            ans++;
         }
     }
-    start = end - d;
-    return false;
+    return ans;
 }
 
-void solve() {
-    int n, d;
-    cin >> n >> d;
-    vector<int> a(n);
-    for ( int i = 0; i < n; i++ ) {
+void solve()
+{
+    int n;
+    cin >> n;
+    vi a(n);
+    for ( int i = 0; i < n; i++ )
+    {
         cin >> a[i];
     }
-    double l = 0, r = 1e9;
-    int start = 0, end = 0;
-    for ( int i = 0; i < 100; i++ ) 
-    {
-        double m = ( l + r ) / 2;
-        if ( ok(m, d, a, start, end) ) {
-            l = m;
-        }
-        else {
-            r = m;
-        }
-    }
-    cout << start + 1 << " " << end + 1 << nl;
+
+    cout << waysToSplitArray(a) << nl;
+
 
 }
 int main()
 {
     FastIO;
-    cout.setf(std::ios::fixed, std::ios::floatfield);
-    cout.precision(9);
     int t = 1;
-    // cin >> t;
+    //  cin>>t;
     while ( t-- )
     {
         solve();

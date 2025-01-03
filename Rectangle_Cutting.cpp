@@ -51,52 +51,39 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-// Given an array of n and a number d. Your task is to find the maximum average of a subarray of length d.
+int dp[505][505];
 
-bool ok(double x, int d, vector<int>& a, int& start, int& end) {
-    double sum = 0, pre = 0, min_pre = 0;
-    for ( int i = 0; i < a.size(); i++ ) {
-        sum += a[i] - x;
-        if ( i >= d - 1 ) {
-            if ( sum - min_pre >= 0 ) {
-                end = i;
-                return true;
-            }
-            pre += a[i - d + 1] - x;
-            min_pre = min(min_pre, pre);
-        }
-    }
-    start = end - d;
-    return false;
-}
 
-void solve() {
-    int n, d;
-    cin >> n >> d;
-    vector<int> a(n);
-    for ( int i = 0; i < n; i++ ) {
-        cin >> a[i];
-    }
-    double l = 0, r = 1e9;
-    int start = 0, end = 0;
-    for ( int i = 0; i < 100; i++ ) 
+void solve()
+{
+    int a, b;
+    cin >> a >> b;
+    for ( int i = 1; i <= a; i++ )
     {
-        double m = ( l + r ) / 2;
-        if ( ok(m, d, a, start, end) ) {
-            l = m;
-        }
-        else {
-            r = m;
+        for ( int j = 1; j <= b; j++ )
+        {
+            if ( i == j )
+            {
+                continue;
+            }
+            dp[i][j] = 1e9;
+            // try horizontal cuts
+            for ( int k = 1; k < i; k++ )
+            {
+                dp[i][j] = min(dp[i][j], dp[k][j] + dp[i - k][j] + 1);
+            }
+            // try vertical cuts
+            for ( int k = 1; k < j; k++ )
+            {
+                dp[i][j] = min(dp[i][j], dp[i][k] + dp[i][j - k] + 1);
+            }
         }
     }
-    cout << start + 1 << " " << end + 1 << nl;
-
+    cout << dp[a][b] << nl;
 }
 int main()
 {
     FastIO;
-    cout.setf(std::ios::fixed, std::ios::floatfield);
-    cout.precision(9);
     int t = 1;
     // cin >> t;
     while ( t-- )
