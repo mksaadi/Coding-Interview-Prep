@@ -17,7 +17,7 @@ queue<int> q;
 void bfs(int start)
 {
     dist[start] = 0;
-    parent[start] = start;
+    parent[start] = -1;
     visited[start] = true;
     q.push(start);
     while ( !q.empty() )
@@ -64,13 +64,18 @@ int main()
     cin >> destination;
     cout << "Distance from node 1 to " << destination << " = " << dist[destination] << nl;
     // print the path from 1 to destination
-
+    vector<int> path;
     int temp = destination;
-    while ( temp != 1 )
+    while ( temp != -1 )
     {
-        cout << temp << " --> ";
+        // cout << temp << " --> ";
+        path.push_back(temp);
         temp = parent[temp];
     }
-    cout << 1 << nl;
+    // cout << 1 << nl;
+    for ( int i = ( ( int )path.size() ) - 1; i >= 0; i-- )
+    {
+        cout << path[i] << " \n"[i == 0];
+    }
     return 0;
 }

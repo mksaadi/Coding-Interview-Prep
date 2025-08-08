@@ -5,14 +5,13 @@ using ull = unsigned  long long;
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using vi = vector<int>;
-using vb = vector<bool>;
 using vl = vector<ll>;
 using vpi = vector<pi>;
 using vpl = vector<pl>;
 using ld = long double;
 using vld = vector<ld>;
 #define FastIO ios_base::sync_with_stdio(false); cin.tie(0);
-#define nl " \n" 
+#define nl "\n" 
 #define ff first
 #define ss second
 #define mp make_pair
@@ -22,7 +21,7 @@ using vld = vector<ld>;
 #define MOD 1000000007
 #define INF 1e18
 #define PI 3.141592653589793238462
-#define set_precision(x) {cout<<fixed<<setprecision(x);}
+#define set_precision(x) cout.setf(std::ios::fixed, std::ios::floatfield);cout.precision(x);
 
 
 #ifndef ONLINE_JUDGE
@@ -52,72 +51,65 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-string r;
-ll nb, ns, nc;
-ll pb, ps, pc;
-ll m;
-map<char, ll>cnt;
+// int num_divs(int n)
+// {
+//     int cnt = 0;
+//     for ( int i = 1; i * i <= n; i++ )
+//     {
+//         if ( n % i == 0 )cnt += ( i * i == n ? 1 : 2 );
+//     }
+//     return cnt;
+// }
 
+// void solve()
+// {
+//     int n;
+//     cin >> n;
+//     cout << num_divs(n) << nl;
+// }
 
-bool ok(ll mid)
-{
-    string s = "BSC";
-    vl v = { nb,ns,nc };
-    vl p = { pb,ps,pc };
-    ll cur_m = m;
-    for ( int i = 0; i < 3; i++ )
-    {
-        ll need = max(0LL, ( cnt[s[i]] * mid ) - v[i]);
-        ll cost = need * p[i];
-        if ( cost > cur_m )
-        {
-            return false;
-        }
-        else
-        {
-            cur_m -= cost;
-        }
-    }
-    return true;
-}
+const int mx = 1e6 + 1;
+int lp[mx];
 
 
 void solve()
 {
-    cin >> r;
-    cin >> nb >> ns >> nc;
-    cin >> pb >> ps >> pc;
-    cin >> m;
-    for ( auto c : r )
+    int n;
+    cin >> n;
+    int ans = 1;
+    while ( n > 1 )
     {
-        cnt[c]++;
-    }
-    ll low = 0; // always possible
-    ll high = 1;
-    // make it impossible
-    while ( ok(high) )
-    {
-        high *= 2LL;
-    }
-    while ( low + 1 < high )
-    {
-        ll mid = low + ( ( high - low ) / 2 );
-        if ( ok(mid) )
+        int cnt = 1;
+        int p = lp[n];
+        while ( n % p == 0 )
         {
-            low = mid;
+            n /= p;
+            cnt++;
         }
-        else
-        {
-            high = mid;
-        }
+        ans *= cnt;
     }
-    cout << low << nl;
+    cout << ans << nl;
 }
+
 int main()
 {
     FastIO;
+    for ( int i = 2; i < mx; i++ )
+    {
+        if ( lp[i] == 0 )
+        {
+            for ( int j = i; j < mx; j += i )
+            {
+                lp[j] = i;
+            }
+        }
+    }
+    // for ( int i = 0; i <= 30; i++ )
+    // {
+    //     cerr << "LP[" << i << "] = " << lp[i] << nl;
+    // }
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while ( t-- )
     {
         solve();

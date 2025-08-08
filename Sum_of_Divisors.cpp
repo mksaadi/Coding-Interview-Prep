@@ -18,7 +18,7 @@ using vld = vector<ld>;
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(),(x).rend()
-#define MOD 1000000007
+#define mod 1000000007
 #define INF 1e18
 #define PI 3.141592653589793238462
 #define set_precision(x) cout.setf(std::ios::fixed, std::ios::floatfield);cout.precision(x);
@@ -51,19 +51,43 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-
+ll Sum(ll n)
+{
+    ll a, b;
+    if ( n & 1 )
+    {
+        a = n;
+        b = ( n + 1 ) / 2;
+    }
+    else
+    {
+        a = n / 2;
+        b = n + 1;
+    }
+    return ( ( a % mod ) * ( b % mod ) ) % mod;
+}
 
 void solve()
 {
-
-
-
+    ll n;
+    cin >> n;
+    ll ans = 0LL;
+    ll i = 1;
+    while ( i <= n )
+    {
+        ll q = n / i;
+        ll j = n / q;
+        ll s = ( ( Sum(j) - Sum(i - 1) ) + mod ) % mod;
+        ans = ( ans + ( q * s ) % mod ) % mod;
+        i = j + 1;
+    }
+    cout << ans << "\n";
 }
 int main()
 {
     FastIO;
-    int t;
-    cin >> t;
+    int t = 1;
+    // cin >> t;
     while ( t-- )
     {
         solve();

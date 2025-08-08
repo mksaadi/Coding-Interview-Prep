@@ -11,7 +11,7 @@ using ll = long long;
 // If we start with an array of size 1 and keep doubling the size with each overflow, for n pushes.. cost of copy will be
 
 //  (1 + 2 + 4 + 8 + ... + n/2 + n)
-//  = n *( 1 + 1/2 + 1/4 + 1/8 + ... 1/n)  -  taking out n
+//  = n *( 1 + 1/2 + 1/4 + 1/8 + ...+ 1/n)  -  taking out n
 // = n*2   - the expression in bracket above will evaluate to 2.
 
 // So, cost of copy in n pushes = O(n)
@@ -21,12 +21,12 @@ using ll = long long;
 
 class DynamicArray
 {
-private:
+    private:
     int size;
     int capacity;
-    int *arr;
+    int* arr;
 
-public:
+    public:
     DynamicArray() : arr(nullptr), capacity(0), size(0) {}
     ~DynamicArray()
     {
@@ -35,16 +35,12 @@ public:
 
     void push_back(int value)
     {
-        cout << "Push_back(" << value << ")\n";
-        cout << "Before : \n";
-        cout << "Size = " << size << "\n";
-        cout << "Capacity = " << capacity << "\n";
-        if (size >= capacity)
+        if ( size >= capacity )
         {
-            int newCapacity = (capacity == 0 ? 1 : capacity * 2);
-            int *newArr = new int[newCapacity];
+            int newCapacity = ( capacity == 0 ? 1 : capacity * 2 );
+            int* newArr = new int[newCapacity];
 
-            for (int i = 0; i < size; i++)
+            for ( int i = 0; i < size; i++ )
             {
                 newArr[i] = arr[i];
             }
@@ -54,14 +50,11 @@ public:
         }
         arr[size] = value;
         size++;
-        cout << "After : \n";
-        cout << "Size = " << size << "\n";
-        cout << "Capacity = " << capacity << "\n";
     }
 
     int at(int index) const
     {
-        if (index >= 0 && index < size)
+        if ( index >= 0 && index < size )
         {
             return arr[index];
         }
@@ -82,13 +75,13 @@ int main()
     int n;
     cin >> n;
     DynamicArray d;
-    for (int i = 0; i < n; i++)
+    for ( int i = 0; i < n; i++ )
     {
         int x;
         cin >> x;
         d.push_back(x);
     }
-    for (int i = 0; i < n; i++)
+    for ( int i = 0; i < n; i++ )
     {
         cout << d.at(i) << " ";
     }

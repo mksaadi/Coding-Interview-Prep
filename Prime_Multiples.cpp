@@ -5,14 +5,13 @@ using ull = unsigned  long long;
 using pi = pair<int, int>;
 using pl = pair<ll, ll>;
 using vi = vector<int>;
-using vb = vector<bool>;
 using vl = vector<ll>;
 using vpi = vector<pi>;
 using vpl = vector<pl>;
 using ld = long double;
 using vld = vector<ld>;
 #define FastIO ios_base::sync_with_stdio(false); cin.tie(0);
-#define nl " \n" 
+#define nl "\n" 
 #define ff first
 #define ss second
 #define mp make_pair
@@ -22,7 +21,7 @@ using vld = vector<ld>;
 #define MOD 1000000007
 #define INF 1e18
 #define PI 3.141592653589793238462
-#define set_precision(x) {cout<<fixed<<setprecision(x);}
+#define set_precision(x) cout.setf(std::ios::fixed, std::ios::floatfield);cout.precision(x);
 
 
 #ifndef ONLINE_JUDGE
@@ -52,66 +51,44 @@ template <class T> void _print(multiset <T> v) { cerr << "[ "; for ( T i : v ) {
 template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for ( auto i : v ) { _print(i); cerr << " "; } cerr << "]" << nl; }
 
 
-string r;
-ll nb, ns, nc;
-ll pb, ps, pc;
-ll m;
-map<char, ll>cnt;
-
-
-bool ok(ll mid)
-{
-    string s = "BSC";
-    vl v = { nb,ns,nc };
-    vl p = { pb,ps,pc };
-    ll cur_m = m;
-    for ( int i = 0; i < 3; i++ )
-    {
-        ll need = max(0LL, ( cnt[s[i]] * mid ) - v[i]);
-        ll cost = need * p[i];
-        if ( cost > cur_m )
-        {
-            return false;
-        }
-        else
-        {
-            cur_m -= cost;
-        }
-    }
-    return true;
-}
 
 
 void solve()
 {
-    cin >> r;
-    cin >> nb >> ns >> nc;
-    cin >> pb >> ps >> pc;
-    cin >> m;
-    for ( auto c : r )
+    ll n, k;
+    cin >> n >> k;
+    vl primes(k);
+    for ( ll i = 0; i < k; i++ )
     {
-        cnt[c]++;
+        cin >> primes[i];
     }
-    ll low = 0; // always possible
-    ll high = 1;
-    // make it impossible
-    while ( ok(high) )
+    ll ans = 0LL;
+    for ( ll i = 1LL; i < ( 1LL << k ); i++ )
     {
-        high *= 2LL;
-    }
-    while ( low + 1 < high )
-    {
-        ll mid = low + ( ( high - low ) / 2 );
-        if ( ok(mid) )
+        ll prod = 1LL;
+        for ( ll j = 0; j < k; j++ )
         {
-            low = mid;
+            if ( i & ( 1LL << j ) )
+            {
+                if ( prod > ( n / primes[j] ) )
+                {
+                    prod = n + 1LL;
+                    break;
+                }
+                prod *= primes[j];
+            }
+        }
+        if ( __builtin_popcountll(i) & 1 )
+        {
+            ans += ( n / prod );
         }
         else
         {
-            high = mid;
+            ans -= ( n / prod );
         }
     }
-    cout << low << nl;
+    cout << ans << nl;
+
 }
 int main()
 {
